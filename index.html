@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>For You</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:1.25rem;min-height:100vh;overflow-x:hidden;
+background:linear-gradient(160deg,#0f1b3d,#3b2a6e,#b5456f,#f0936b,#3b2a6e,#0f1b3d);background-size:400% 400%;animation:bg 24s ease infinite;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+@keyframes bg{0%,100%{background-position:0 0}50%{background-position:100% 100%}}
+#gate{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;text-align:center;padding:1.5rem;background:#0f1b3d;transition:opacity 1s,visibility 1s}
+#gate.gone{opacity:0;visibility:hidden}
+#gate p{font-style:italic;font-size:1.6rem;margin:0}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid #ffd9a0;outline-offset:5px}
+.btn{font-size:1.3rem;font-weight:700;font-style:italic;color:#3b1a3a;background:#ffe6c7;border:0;border-radius:99px;padding:.85rem 2.4rem;box-shadow:0 0 30px rgba(255,217,160,.55);transition:transform .2s}
+.btn:active{transform:scale(.94)}
+main{max-width:720px;margin:0 auto;padding:3.5rem 1.25rem 5rem;text-align:center}
+section{margin:0 0 5rem}
+.to{font-style:italic;font-size:1.6rem;margin:0;color:#ffd9a0}
+.big{font-weight:700;font-style:italic;font-size:clamp(3.2rem,15vw,7rem);line-height:1.05;margin:.2em 0;background:linear-gradient(90deg,#fff,#ffd9a0,#ff9bb8,#fff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.type{font-style:italic;font-size:1.5rem;line-height:1.55;min-height:7em}
+.type::after{content:'|';animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.glow{font-weight:700;font-size:clamp(2rem,9vw,3.6rem);margin:0;text-shadow:0 0 8px #fff,0 0 24px #ff9bb8,0 0 56px #ff6f9c;animation:flick 3.5s infinite}
+@keyframes flick{0%,18%,22%,60%,100%{opacity:1}20%,62%{opacity:.6}}
+.pop span{display:inline-block;font-style:italic;font-weight:700;font-size:clamp(1.8rem,8vw,3rem);animation:bounce 1.8s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.sub{font-size:1.1rem;letter-spacing:.18em;color:#ffd9a0;margin:0 0 1.2rem}
+.reasons{display:grid;gap:1rem}
+.r{padding:1.1rem 1.3rem;border:1px solid rgba(255,255,255,.35);border-radius:1.4rem .4rem 1.4rem .4rem;background:rgba(255,255,255,.08);backdrop-filter:blur(4px);font-style:italic;font-size:1.35rem}
+#last{font-weight:700;font-style:italic;font-size:clamp(1.8rem,8vw,3rem);margin-top:1.5rem;min-height:2.5em;text-shadow:0 0 20px rgba(255,217,160,.7)}
+#from{font-style:italic;font-size:1.8rem;margin-top:1.5rem;color:#ffd9a0}
+#no{background:rgba(255,255,255,.18);color:#fff;box-shadow:none;font-size:1.05rem;padding:.7rem 1.4rem;margin-left:.6rem}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div id="gate">
+  <p>I made something for you</p>
+  <button class="btn" id="open">Open</button>
+</div>
+
+<main>
+  <section>
+    <p class="to" id="to"></p>
+    <h1 class="big">I Love You</h1>
+    <div class="type" id="type" aria-live="polite"></div>
+  </section>
+
+  <section>
+    <p class="sub">EVERY DAY WITH YOU</p>
+    <p class="glow">You + Me</p>
+  </section>
+
+  <section class="pop" aria-label="You make my world brighter">
+    <span>You</span> <span style="animation-delay:.2s">make</span> <span style="animation-delay:.4s">my</span> <span style="animation-delay:.6s">world</span> <span style="animation-delay:.8s">brighter</span>
+  </section>
+
+  <section>
+    <p class="sub">WHY MY HEART IS YOURS</p>
+    <div class="reasons">
+      <div class="r">Your smile is my favorite place</div>
+      <div class="r">You make ordinary days feel special</div>
+      <div class="r">With you, I feel at home</div>
+      <div class="r">You believe in me, always</div>
+      <div class="r">You are my best surprise</div>
+    </div>
+  </section>
+
+  <section>
+    <p class="glow" style="font-size:clamp(1.6rem,7vw,2.6rem);margin-bottom:1.5rem">Will you be mine forever?</p>
+    <button class="btn" id="yes">Yes</button><button class="btn" id="no">No</button>
+    <div id="last"></div>
+    <p id="from"></p>
+  </section>
+</main>
+
+<script>
+(function(){
+  /* ====== EDIT THESE TWO LINES ====== */
+  var HER="My Love";   // her name, e.g. "Sara"
+  var HIM="Me";        // your name, e.g. "Ali"
+  /* ================================== */
+  document.getElementById('to').textContent='For '+HER;
+  document.getElementById('from').textContent='Forever yours, '+HIM;
+
+  var lines=["From the moment you came into my life, everything changed.","You turned my days into stories and my nights into dreams.","I may not say it enough, so I made this just for you.","I love you, today, tomorrow, and always."];
+  var el=document.getElementById('type'),li=0,ci=0;
+  function type(){
+    if(li>=lines.length)return;
+    var t=lines[li];
+    if(ci<=t.length){el.textContent=lines.slice(0,li).join(' ')+(li?' ':'')+t.slice(0,ci++);setTimeout(type,45)}
+    else{li++;ci=0;setTimeout(type,700)}
+  }
+  document.getElementById('open').onclick=function(){
+    document.getElementById('gate').classList.add('gone');
+    setTimeout(type,800);
+  };
+
+  var no=document.getElementById('no');
+  function dodge(e){e.preventDefault();no.style.position='fixed';no.style.left=(10+Math.random()*60)+'vw';no.style.top=(15+Math.random()*70)+'vh';no.style.zIndex=5}
+  no.addEventListener('mouseover',dodge);no.addEventListener('touchstart',dodge,{passive:false});no.addEventListener('click',dodge);
+
+  var msgs=["I knew you would say yes.","You just made me the happiest person.","I love you more than words can say."],mi=0;
+  document.getElementById('yes').onclick=function(){
+    document.getElementById('last').textContent=msgs[mi++%msgs.length];
+  };
+})();
+</script>
+</body>
+</html>
